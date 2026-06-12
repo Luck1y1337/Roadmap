@@ -1,7 +1,8 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLanguage } from '../LanguageContext'
-import { useLocalStorage } from '../hooks'
+import { useAuth } from '../AuthContext'
+import { api } from '../api'
 import type { Track } from '../types'
 
 interface RoadmapProps {
@@ -35,8 +36,10 @@ const tipIcons: Record<PhaseKey, string> = {
 
 export default function RoadmapSection({ currentTrack, onProgressChange }: RoadmapProps) {
   const { t } = useLanguage()
-  const [checks, setChecks] = useLocalStorage<Record<string, boolean>>('luck1y_checks', {})
+  const { user } = useAuth()
+  const [checks, setChecks] = useState<Record<string, boolean>>({})
   const [openPhases, setOpenPhases] = useState<Record<string, boolean>>({ 'phase-0': true })
+  const [loading, setLoading] = useState(false)
 
   const filteredPhases = useMemo(
     () => phaseConfigs.filter(p => currentTrack === 'both' || p.track === 'both' || p.track === currentTrack),
@@ -45,17 +48,33 @@ export default function RoadmapSection({ currentTrack, onProgressChange }: Roadm
 
   const allTaskIds = useMemo(() => phaseConfigs.flatMap(p => p.taskKeys.map((_, i) => `${p.id}-${i}`)), [])
 
+  useEffect(() => {
+    if (user) {
+      setLoading(true)
+      api.get('/progress').then(res => setChecks(res)).catch(() => {}).finally(() => setLoading(false))
+    } else {
+      setChecks({})
+    }
+  }, [user])
+
   const togglePhase = (id: string) => {
     setOpenPhases(prev => ({ ...prev, [id]: !prev[id] }))
   }
 
-  const toggleCheck = (taskId: string) => {
-    setChecks(prev => {
-      const next = { ...prev, [taskId]: !prev[taskId] }
-      const checked = allTaskIds.filter(id => next[id]).length
-      onProgressChange(Math.round((checked / allTaskIds.length) * 100))
-      return next
-    })
+  const toggleCheck = async (taskId: string) => {
+    if (!user) {
+      window.dispatchEvent(new CustomEvent('open-auth'))
+      return
+    }
+    const next = { ...checks, [taskId]: !checks[taskId] }
+    setChecks(next)
+    
+    const checked = allTaskIds.filter(id => next[id]).length
+    onProgressChange(Math.round((checked / allTaskIds.length) * 100))
+
+    try {
+      await api.post('/progress', { checks: next })
+    } catch(e) { console.error(e) }
   }
 
   const getPhaseProgress = (config: PhaseConfig) => {

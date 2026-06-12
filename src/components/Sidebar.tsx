@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLanguage } from '../LanguageContext'
+import { useAuth } from '../AuthContext'
 import LanguageSwitcher from './LanguageSwitcher'
 
 const navIcons = ['🏠', '📊', '🗺️', '📚', '🎯', '🌏', '✅']
@@ -14,6 +15,7 @@ interface SidebarProps {
 export default function Sidebar({ activeSection, overallProgress }: SidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
   const { t } = useLanguage()
+  const { user, logout } = useAuth()
 
   const navLabels = [
     t.nav.home, t.nav.skills, t.nav.roadmap,
@@ -49,17 +51,29 @@ export default function Sidebar({ activeSection, overallProgress }: SidebarProps
         ))}
       </ul>
       <div className="py-4 px-5 border-t border-border">
-        <div className="flex flex-col gap-1.5">
-          <span className="text-xs text-text-muted">{t.sidebar.progress}</span>
-          <div className="h-1 bg-white/5 rounded-full overflow-hidden">
-            <motion.div
-              className="h-full bg-gradient-main rounded-full"
-              animate={{ width: `${overallProgress}%` }}
-              transition={{ duration: 0.5 }}
-            />
+        {user ? (
+          <div className="flex flex-col gap-2">
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-text-primary font-medium truncate max-w-[120px]">{user.username}</span>
+              <button onClick={logout} className="bg-transparent border-none text-xs text-accent-red cursor-pointer hover:underline">Chiqish</button>
+            </div>
+            <div className="flex flex-col gap-1.5 mt-2">
+              <span className="text-xs text-text-muted">{t.sidebar.progress}</span>
+              <div className="h-1 bg-white/5 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full bg-gradient-main rounded-full"
+                  animate={{ width: `${overallProgress}%` }}
+                  transition={{ duration: 0.5 }}
+                />
+              </div>
+              <span className="font-mono text-xs text-accent-cyan">{overallProgress}%</span>
+            </div>
           </div>
-          <span className="font-mono text-xs text-accent-cyan">{overallProgress}%</span>
-        </div>
+        ) : (
+          <button onClick={() => window.dispatchEvent(new CustomEvent('open-auth'))} className="w-full py-2 bg-white/5 hover:bg-white/10 border border-border rounded-lg text-sm text-text-primary transition-colors cursor-pointer">
+            Tizimga kirish
+          </button>
+        )}
       </div>
     </>
   )
