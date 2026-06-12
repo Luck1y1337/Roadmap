@@ -58,3 +58,16 @@ export function useInView(threshold = 0.1) {
 
   return { ref: setRef, inView }
 }
+
+export function trackActivity() {
+  try {
+    const today = new Date().toISOString().split('T')[0]
+    const saved = localStorage.getItem('luck1y_activity')
+    const activity = saved ? JSON.parse(saved) : {}
+    activity[today] = (activity[today] || 0) + 1
+    localStorage.setItem('luck1y_activity', JSON.stringify(activity))
+    window.dispatchEvent(new Event('activity-updated'))
+  } catch (e) {
+    console.error(e)
+  }
+}

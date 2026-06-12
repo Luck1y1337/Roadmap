@@ -13,6 +13,7 @@ app.use(cors());
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/todos', require('./routes/todos'));
 app.use('/api/progress', require('./routes/progress'));
+app.use('/api/activity', require('./routes/activity'));
 
 // Default Route
 app.get('/', (req, res) => {

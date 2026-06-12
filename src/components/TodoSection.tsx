@@ -1,58 +1,40 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLanguage } from '../LanguageContext'
-import { useAuth } from '../AuthContext'
-import { api } from '../api'
+import { useLocalStorage, trackActivity } from '../hooks'
+import Heatmap from './Heatmap'
 import type { Todo, TodoFilter } from '../types'
 
 export default function TodoSection() {
   const { t } = useLanguage()
-  const { user } = useAuth()
-  const [todos, setTodos] = useState<Todo[]>([])
+  const [todos, setTodos] = useLocalStorage<Todo[]>('luck1y_todos', [])
   const [input, setInput] = useState('')
   const [filter, setFilter] = useState<TodoFilter>('all')
-  const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    if (user) {
-      setLoading(true)
-      api.get('/todos').then(res => setTodos(res)).catch(() => {}).finally(() => setLoading(false))
-    } else {
-      setTodos([])
-    }
-  }, [user])
-
-  const addTodo = async () => {
+  const addTodo = () => {
     const text = input.trim()
-    if (!text || !user) return
-    try {
-      const res = await api.post('/todos', { text })
-      setTodos(prev => [res, ...prev])
-      setInput('')
-    } catch (e) { console.error(e) }
+    if (!text) return
+    setTodos(prev => [{ id: Date.now(), text, completed: false }, ...prev])
+    setInput('')
+    trackActivity()
   }
 
-  const toggleTodo = async (id: number | string) => {
-    const todo = todos.find(t => t.id === id || (t as any)._id === id)
-    if (!todo) return
-    try {
-      const res = await api.put(`/todos/${id}`, { completed: !todo.completed })
-      setTodos(prev => prev.map(t => (t.id === id || (t as any)._id === id) ? { ...t, completed: res.completed } : t))
-    } catch (e) { console.error(e) }
+  const toggleTodo = (id: number | string) => {
+    setTodos(prev => prev.map(t => {
+      if (t.id === id) {
+        if (!t.completed) trackActivity()
+        return { ...t, completed: !t.completed }
+      }
+      return t
+    }))
   }
 
-  const deleteTodo = async (id: number | string) => {
-    try {
-      await api.delete(`/todos/${id}`)
-      setTodos(prev => prev.filter(t => t.id !== id && (t as any)._id !== id))
-    } catch (e) { console.error(e) }
+  const deleteTodo = (id: number | string) => {
+    setTodos(prev => prev.filter(t => t.id !== id))
   }
 
-  const clearCompleted = async () => {
-    try {
-      await api.delete('/todos/clear/completed')
-      setTodos(prev => prev.filter(t => !t.completed))
-    } catch (e) { console.error(e) }
+  const clearCompleted = () => {
+    setTodos(prev => prev.filter(t => !t.completed))
   }
 
   const filtered = todos.filter(td => {
@@ -69,14 +51,16 @@ export default function TodoSection() {
   ]
 
   return (
-    <section id="todos" className="py-20 px-5 md:px-12 max-w-[1100px] mx-auto">
-      <div className="mb-12">
+    <section id="todos" className="py-20 px-5 md:px-12 max-w-[900px] mx-auto min-h-[80vh]">
+      <div className="mb-12 text-center">
         <span className="inline-block font-mono text-[0.7rem] tracking-[0.2em] text-accent-cyan px-3 py-1 border border-accent-cyan/20 rounded-full mb-3.5">{t.todos.tag}</span>
         <h2 className="text-[2rem] font-extrabold mb-2 tracking-tight">{t.todos.title}</h2>
-        <p className="text-text-secondary text-base">{t.todos.desc}</p>
+        <p className="text-text-secondary text-base max-w-[600px] mx-auto">{t.todos.desc}</p>
       </div>
 
-      <div className="max-w-[700px] mx-auto">
+      <Heatmap />
+
+      <div className="bg-card border border-border rounded-xl p-5 md:p-8 shadow-2xl relative overflow-hidden">
         <div className="flex gap-2.5 mb-6 relative">
           <input
             type="text"
@@ -103,15 +87,9 @@ export default function TodoSection() {
         </div>
 
         <ul className="list-none p-0 m-0 flex flex-col gap-2.5 mb-8">
-          {!user && (
-            <div className="text-center py-6 text-text-muted text-sm border border-dashed border-border rounded-lg">
-              Vazifalarni ko'rish va qo'shish uchun tizimga kiring.
-            </div>
-          )}
-          {loading && user && <div className="text-center py-4 text-text-muted">Yuklanmoqda...</div>}
           <AnimatePresence>
-            {user && filtered.map(td => {
-              const id = td.id || (td as any)._id;
+            {filtered.map(td => {
+              const id = td.id;
               return (
               <motion.li
                 key={id}

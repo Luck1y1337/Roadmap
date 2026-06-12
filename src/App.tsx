@@ -15,36 +15,25 @@ import type { Track } from './types'
 
 const sectionIds = ['hero', 'skills', 'roadmap', 'resources', 'practice', 'abroad', 'todos']
 
-import AuthModal from './components/AuthModal'
-
-import { useAuth } from './AuthContext'
-import { api } from './api'
+import TerminalWidget from './components/TerminalWidget'
+import FocusWidget from './components/FocusWidget'
 
 function AppContent() {
-  const { user } = useAuth()
   const [currentTrack, setCurrentTrack] = useState<Track>('both')
   const [overallProgress, setOverallProgress] = useState(0)
-  const [isAuthOpen, setIsAuthOpen] = useState(false)
   const activeSection = useScrollSpy(sectionIds)
 
   useEffect(() => {
-    const handleOpenAuth = () => setIsAuthOpen(true)
-    window.addEventListener('open-auth', handleOpenAuth)
-    return () => window.removeEventListener('open-auth', handleOpenAuth)
-  }, [])
-
-  useEffect(() => {
-    if (user) {
-      api.get('/progress').then(res => {
-        const checks = res || {}
+    try {
+      const saved = localStorage.getItem('luck1y_checks')
+      if (saved) {
+        const checks = JSON.parse(saved) as Record<string, boolean>
         const totalTasks = 36 // total task count across all phases
         const checked = Object.values(checks).filter(Boolean).length
         setOverallProgress(Math.round((checked / totalTasks) * 100))
-      }).catch(err => console.error(err))
-    } else {
-      setOverallProgress(0)
-    }
-  }, [user])
+      }
+    } catch { /* ignore */ }
+  }, [])
 
   const memoizedActiveSection = useMemo(() => activeSection, [activeSection])
 
@@ -61,20 +50,17 @@ function AppContent() {
         <AbroadSection />
         <TodoSection />
         <Footer />
-        <AuthModal isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
+        <TerminalWidget />
+        <FocusWidget />
       </main>
     </>
   )
 }
 
-import { AuthProvider } from './AuthContext'
-
 export default function App() {
   return (
     <LanguageProvider>
-      <AuthProvider>
-        <AppContent />
-      </AuthProvider>
+      <AppContent />
     </LanguageProvider>
   )
 }
