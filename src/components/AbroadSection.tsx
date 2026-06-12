@@ -21,7 +21,7 @@ export default function AbroadSection() {
     { icon: '🎤', title: jp.r5t, sub: jp.r5s },
   ]
 
-  const renderCard = (country: typeof cn | typeof jp, reqs: typeof cnReqs, cardClass: string, moreUrl: string, xDir: number) => (
+  const renderCard = (country: typeof cn | typeof jp, reqs: { icon: string, title: string, sub: string }[], cardClass: string, moreUrl: string, xDir: number) => (
     <motion.div className={`abroad-card ${cardClass}`} whileHover={{ y: -4 }}
       initial={{ opacity: 0, x: xDir }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
     >

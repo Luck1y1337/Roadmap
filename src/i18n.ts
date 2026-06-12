@@ -536,12 +536,12 @@ const translations = {
       quote: '"Лучшее время начать было вчера. Второе лучшее — сейчас."',
     },
   },
-} as const
+}
 
-export type TranslationKeys = TranslationSet
+export type TranslationKeys = typeof translations['uz']
 
-export function getTranslation(lang: Lang): TranslationSet {
-  return translations[lang]
+export function getTranslation(lang: Lang): TranslationKeys {
+  return translations[lang] as any
 }
 
 export default translations
