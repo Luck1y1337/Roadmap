@@ -1,11 +1,24 @@
 import { useEffect, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { skillsData, radarLabels, radarValues } from '../data'
+import { useLanguage } from '../LanguageContext'
 import { useInView } from '../hooks'
+
+const levels = [75, 40, 30, 55, 80, 55]
 
 export default function SkillsSection() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const { ref: sectionRef, inView } = useInView(0.3)
+  const { t } = useLanguage()
+
+  const radarLabels = [t.radar.s1, t.radar.s2, t.radar.s3, t.radar.s4, t.radar.s5, t.radar.s6]
+  const skillsData = [
+    { name: t.skills.s1, level: 75, note: t.skills.s1n },
+    { name: t.skills.s2, level: 40, note: t.skills.s2n },
+    { name: t.skills.s3, level: 30, note: t.skills.s3n },
+    { name: t.skills.s4, level: 55, note: t.skills.s4n },
+    { name: t.skills.s5, level: 80, note: t.skills.s5n },
+    { name: t.skills.s6, level: 55, note: t.skills.s6n },
+  ]
 
   const drawRadar = useCallback(() => {
     const canvas = canvasRef.current
@@ -47,7 +60,7 @@ export default function SkillsSection() {
     }
 
     ctx.beginPath()
-    radarValues.forEach((val, i) => {
+    levels.forEach((val, i) => {
       const a = step * i - Math.PI / 2
       const r = (val / 100) * maxR
       i === 0 ? ctx.moveTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r) : ctx.lineTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r)
@@ -62,7 +75,7 @@ export default function SkillsSection() {
     ctx.lineWidth = 2
     ctx.stroke()
 
-    radarValues.forEach((val, i) => {
+    levels.forEach((val, i) => {
       const a = step * i - Math.PI / 2
       const r = (val / 100) * maxR
       const x = cx + Math.cos(a) * r
@@ -84,7 +97,7 @@ export default function SkillsSection() {
       const a = step * i - Math.PI / 2
       ctx.fillText(label, cx + Math.cos(a) * (maxR + 25), cy + Math.sin(a) * (maxR + 25))
     })
-  }, [])
+  }, [radarLabels])
 
   useEffect(() => {
     if (inView) drawRadar()
@@ -93,9 +106,9 @@ export default function SkillsSection() {
   return (
     <section id="skills" className="section" ref={sectionRef}>
       <div className="section-header">
-        <span className="section-tag">ANALYTICS</span>
-        <h2 className="section-title">📊 Hozirgi Bilim Darajangiz</h2>
-        <p className="section-desc">Test natijalaringiz asosida avtomatik baholangan</p>
+        <span className="section-tag">{t.skills.tag}</span>
+        <h2 className="section-title">{t.skills.title}</h2>
+        <p className="section-desc">{t.skills.desc}</p>
       </div>
       <div className="skills-container">
         <div className="skills-radar-wrap">
@@ -103,9 +116,7 @@ export default function SkillsSection() {
         </div>
         <div className="skills-details">
           {skillsData.map((skill, i) => (
-            <motion.div
-              key={skill.name}
-              className="skill-item"
+            <motion.div key={skill.name} className="skill-item"
               initial={{ opacity: 0, x: 30 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1 }}
@@ -115,8 +126,7 @@ export default function SkillsSection() {
                 <span className="skill-level">{skill.level}%</span>
               </div>
               <div className="skill-bar">
-                <motion.div
-                  className="skill-fill"
+                <motion.div className="skill-fill"
                   initial={{ width: 0 }}
                   animate={inView ? { width: `${skill.level}%` } : {}}
                   transition={{ duration: 1.2, delay: i * 0.1, ease: [0.4, 0, 0.2, 1] }}

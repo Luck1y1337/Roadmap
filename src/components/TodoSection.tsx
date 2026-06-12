@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLocalStorage } from '../hooks'
+import { useLanguage } from '../LanguageContext'
 import type { Todo, TodoFilter } from '../types'
 
 export default function TodoSection() {
+  const { t } = useLanguage()
   const [todos, setTodos] = useLocalStorage<Todo[]>('luck1y_todos', [])
   const [input, setInput] = useState('')
   const [filter, setFilter] = useState<TodoFilter>('all')
@@ -27,25 +29,25 @@ export default function TodoSection() {
     setTodos(prev => prev.filter(t => !t.completed))
   }
 
-  const filtered = todos.filter(t => {
-    if (filter === 'active') return !t.completed
-    if (filter === 'completed') return t.completed
+  const filtered = todos.filter(td => {
+    if (filter === 'active') return !td.completed
+    if (filter === 'completed') return td.completed
     return true
   })
 
-  const activeCount = todos.filter(t => !t.completed).length
+  const activeCount = todos.filter(td => !td.completed).length
   const filters: { id: TodoFilter; label: string }[] = [
-    { id: 'all', label: 'Hammasi' },
-    { id: 'active', label: 'Bajarilmagan' },
-    { id: 'completed', label: 'Bajarilgan' },
+    { id: 'all', label: t.todos.all },
+    { id: 'active', label: t.todos.active },
+    { id: 'completed', label: t.todos.completed },
   ]
 
   return (
     <section id="todos" className="section">
       <div className="section-header">
-        <span className="section-tag">TODO</span>
-        <h2 className="section-title">✅ Shaxsiy Vazifalar</h2>
-        <p className="section-desc">O'z vazifalaringizni qo'shing va kuzatib boring</p>
+        <span className="section-tag">{t.todos.tag}</span>
+        <h2 className="section-title">{t.todos.title}</h2>
+        <p className="section-desc">{t.todos.desc}</p>
       </div>
 
       <div className="todo-container">
@@ -55,7 +57,7 @@ export default function TodoSection() {
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && addTodo()}
-            placeholder="Yangi vazifa yozing..."
+            placeholder={t.todos.placeholder}
             autoComplete="off"
           />
           <button className="btn-add-todo" onClick={addTodo}>+</button>
@@ -75,27 +77,27 @@ export default function TodoSection() {
 
         <ul className="todo-list">
           <AnimatePresence>
-            {filtered.map(t => (
+            {filtered.map(td => (
               <motion.li
-                key={t.id}
-                className={`todo-item ${t.completed ? 'completed' : ''}`}
+                key={td.id}
+                className={`todo-item ${td.completed ? 'completed' : ''}`}
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.2 }}
                 layout
               >
-                <button className="todo-check" onClick={() => toggleTodo(t.id)} aria-label="Toggle" />
-                <span className="todo-text">{t.text}</span>
-                <button className="todo-delete" onClick={() => deleteTodo(t.id)} aria-label="Delete">✕</button>
+                <button className="todo-check" onClick={() => toggleTodo(td.id)} aria-label="Toggle" />
+                <span className="todo-text">{td.text}</span>
+                <button className="todo-delete" onClick={() => deleteTodo(td.id)} aria-label="Delete">✕</button>
               </motion.li>
             ))}
           </AnimatePresence>
         </ul>
 
         <div className="todo-summary">
-          <span>{activeCount} ta bajarilmagan vazifa</span>
-          <button className="btn-clear" onClick={clearCompleted}>Bajarilganlarni o'chirish</button>
+          <span>{t.todos.count(activeCount)}</span>
+          <button className="btn-clear" onClick={clearCompleted}>{t.todos.clear}</button>
         </div>
       </div>
     </section>

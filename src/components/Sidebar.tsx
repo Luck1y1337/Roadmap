@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { navItems } from '../data'
+import { useLanguage } from '../LanguageContext'
+import LanguageSwitcher from './LanguageSwitcher'
+
+const navIcons = ['🏠', '📊', '🗺️', '📚', '🎯', '🌏', '✅']
+const navIds = ['hero', 'skills', 'roadmap', 'resources', 'practice', 'abroad', 'todos']
 
 interface SidebarProps {
   activeSection: string
@@ -9,6 +13,12 @@ interface SidebarProps {
 
 export default function Sidebar({ activeSection, overallProgress }: SidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const { t } = useLanguage()
+
+  const navLabels = [
+    t.nav.home, t.nav.skills, t.nav.roadmap,
+    t.nav.resources, t.nav.practice, t.nav.abroad, t.nav.todos,
+  ]
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
@@ -21,22 +31,23 @@ export default function Sidebar({ activeSection, overallProgress }: SidebarProps
         <span className="logo-icon">⚡</span>
         <span className="logo-text">Luck1y</span>
       </div>
+      <LanguageSwitcher />
       <ul className="nav-links">
-        {navItems.map(item => (
-          <li key={item.id}>
+        {navIds.map((id, i) => (
+          <li key={id}>
             <button
-              className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
-              onClick={() => scrollTo(item.id)}
+              className={`nav-link ${activeSection === id ? 'active' : ''}`}
+              onClick={() => scrollTo(id)}
             >
-              <span className="nav-icon">{item.icon}</span>
-              <span className="nav-label">{item.label}</span>
+              <span className="nav-icon">{navIcons[i]}</span>
+              <span className="nav-label">{navLabels[i]}</span>
             </button>
           </li>
         ))}
       </ul>
       <div className="sidebar-footer">
         <div className="overall-progress">
-          <span className="progress-label">Umumiy progress</span>
+          <span className="progress-label">{t.sidebar.progress}</span>
           <div className="progress-bar-mini">
             <motion.div
               className="progress-fill-mini"
@@ -61,29 +72,14 @@ export default function Sidebar({ activeSection, overallProgress }: SidebarProps
           <span /><span /><span />
         </button>
         <span className="mobile-logo">⚡ Luck1y</span>
+        <div className="mobile-lang"><LanguageSwitcher /></div>
       </header>
-
-      {/* Desktop sidebar */}
       <nav className="sidebar desktop-sidebar">{navContent}</nav>
-
-      {/* Mobile sidebar */}
       <AnimatePresence>
         {mobileOpen && (
           <>
-            <motion.div
-              className="sidebar-overlay"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setMobileOpen(false)}
-            />
-            <motion.nav
-              className="sidebar mobile-sidebar"
-              initial={{ x: -280 }}
-              animate={{ x: 0 }}
-              exit={{ x: -280 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            >
+            <motion.div className="sidebar-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setMobileOpen(false)} />
+            <motion.nav className="sidebar mobile-sidebar" initial={{ x: -280 }} animate={{ x: 0 }} exit={{ x: -280 }} transition={{ type: 'spring', damping: 25, stiffness: 200 }}>
               {navContent}
             </motion.nav>
           </>
