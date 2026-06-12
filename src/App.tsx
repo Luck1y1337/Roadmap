@@ -38,7 +38,7 @@ function AppContent() {
     <>
       <ParticleCanvas />
       <Sidebar activeSection={memoizedActiveSection} overallProgress={overallProgress} />
-      <main className="main-content">
+      <main className="flex-1 ml-0 md:ml-[var(--spacing-sidebar)] pt-14 md:pt-0 w-full md:w-[calc(100%-var(--spacing-sidebar))] min-h-screen relative z-10 transition-all duration-300">
         <Hero currentTrack={currentTrack} onTrackChange={setCurrentTrack} />
         <SkillsSection />
         <RoadmapSection currentTrack={currentTrack} onProgressChange={setOverallProgress} />

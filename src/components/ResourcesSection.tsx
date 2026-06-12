@@ -45,38 +45,38 @@ export default function ResourcesSection() {
   const keys = resKeys[activeTab]
 
   return (
-    <section id="resources" className="section">
-      <div className="section-header">
-        <span className="section-tag">{t.resources.tag}</span>
-        <h2 className="section-title">{t.resources.title}</h2>
-        <p className="section-desc">{t.resources.desc}</p>
+    <section id="resources" className="py-20 px-5 md:px-12 max-w-[1100px] mx-auto">
+      <div className="mb-12">
+        <span className="inline-block font-mono text-[0.7rem] tracking-[0.2em] text-accent-cyan px-3 py-1 border border-accent-cyan/20 rounded-full mb-3.5">{t.resources.tag}</span>
+        <h2 className="text-[2rem] font-extrabold mb-2 tracking-tight">{t.resources.title}</h2>
+        <p className="text-text-secondary text-base">{t.resources.desc}</p>
       </div>
-      <div className="resource-tabs">
+      <div className="flex gap-2 mb-7 flex-wrap">
         {categories.map(cat => (
-          <button key={cat} className={`res-tab ${activeTab === cat ? 'active' : ''}`} onClick={() => setActiveTab(cat)}>
+          <button key={cat} className={`px-5 py-2 border rounded-full font-sans text-[0.85rem] cursor-pointer transition-all duration-200 ${activeTab === cat ? 'bg-accent-cyan-light border-accent-cyan/30 text-accent-cyan' : 'bg-transparent border-border text-text-secondary hover:border-border-hover hover:bg-white/5'}`} onClick={() => setActiveTab(cat)}>
             {tabIcons[cat]} {t.resources.tabs[cat]}
           </button>
         ))}
       </div>
       <AnimatePresence mode="wait">
-        <motion.div key={activeTab} className="resource-grid"
+        <motion.div key={activeTab} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
           initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.25 }}
         >
           {keys.map((rk, i) => {
             const rd = t.res[rk as keyof typeof t.res]
             return (
-              <motion.div key={rk} className="resource-card"
+              <motion.div key={rk} className="bg-card border border-border rounded-lg p-6 flex flex-col transition-all duration-300 hover:border-border-hover hover:shadow-[var(--shadow-md)]"
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.08 }} whileHover={{ y: -3, transition: { duration: 0.2 } }}
               >
-                <div className="resource-card-header">
-                  <span className="resource-icon">{resIcons[rk]}</span>
-                  <div><div className="resource-name">{rd.n}</div></div>
-                  <span className="resource-type">{resTypes[rk]}</span>
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="text-[1.8rem]">{resIcons[rk]}</span>
+                  <div><div className="font-semibold text-base">{rd.n}</div></div>
+                  <span className="font-mono text-[0.65rem] px-2 py-0.5 rounded-full bg-accent-green-light text-accent-green ml-auto">{resTypes[rk]}</span>
                 </div>
-                <p className="resource-desc">{rd.d}</p>
-                <a href={resUrls[rk]} target="_blank" rel="noopener noreferrer" className="resource-link">{t.resources.goTo}</a>
+                <p className="text-[0.85rem] text-text-secondary leading-relaxed flex-1 mb-3.5">{rd.d}</p>
+                <a href={resUrls[rk]} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-accent-cyan text-[0.85rem] font-medium no-underline transition-all duration-200 hover:gap-2.5">{t.resources.goTo}</a>
               </motion.div>
             )
           })}

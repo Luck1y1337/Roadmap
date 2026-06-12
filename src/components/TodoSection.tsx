@@ -43,31 +43,32 @@ export default function TodoSection() {
   ]
 
   return (
-    <section id="todos" className="section">
-      <div className="section-header">
-        <span className="section-tag">{t.todos.tag}</span>
-        <h2 className="section-title">{t.todos.title}</h2>
-        <p className="section-desc">{t.todos.desc}</p>
+    <section id="todos" className="py-20 px-5 md:px-12 max-w-[1100px] mx-auto">
+      <div className="mb-12">
+        <span className="inline-block font-mono text-[0.7rem] tracking-[0.2em] text-accent-cyan px-3 py-1 border border-accent-cyan/20 rounded-full mb-3.5">{t.todos.tag}</span>
+        <h2 className="text-[2rem] font-extrabold mb-2 tracking-tight">{t.todos.title}</h2>
+        <p className="text-text-secondary text-base">{t.todos.desc}</p>
       </div>
 
-      <div className="todo-container">
-        <div className="todo-input-wrap">
+      <div className="max-w-[700px] mx-auto">
+        <div className="flex gap-2.5 mb-6 relative">
           <input
             type="text"
+            className="flex-1 bg-card border border-border rounded-lg py-3.5 px-4 text-[0.95rem] text-text-primary outline-none transition-all duration-200 focus:border-accent-cyan focus:shadow-[0_0_15px_rgba(0,212,255,0.15)] placeholder:text-text-muted"
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && addTodo()}
             placeholder={t.todos.placeholder}
             autoComplete="off"
           />
-          <button className="btn-add-todo" onClick={addTodo}>+</button>
+          <button className="w-12 h-[52px] bg-accent-cyan text-[#06080f] border-none rounded-lg text-2xl cursor-pointer transition-all duration-200 shrink-0 flex items-center justify-center hover:bg-[#33dfff] hover:scale-105 active:scale-95" onClick={addTodo}>+</button>
         </div>
 
-        <div className="todo-filters">
+        <div className="flex gap-2 mb-6 border-b border-border pb-4">
           {filters.map(f => (
             <button
               key={f.id}
-              className={`todo-filter ${filter === f.id ? 'active' : ''}`}
+              className={`bg-transparent border-none text-[0.85rem] py-1.5 px-3 rounded-full cursor-pointer transition-all duration-200 hover:text-text-primary hover:bg-white/5 ${filter === f.id ? 'bg-white/10 text-text-primary font-semibold' : 'text-text-secondary'}`}
               onClick={() => setFilter(f.id)}
             >
               {f.label}
@@ -75,29 +76,29 @@ export default function TodoSection() {
           ))}
         </div>
 
-        <ul className="todo-list">
+        <ul className="list-none p-0 m-0 flex flex-col gap-2.5 mb-8">
           <AnimatePresence>
             {filtered.map(td => (
               <motion.li
                 key={td.id}
-                className={`todo-item ${td.completed ? 'completed' : ''}`}
+                className={`flex items-center gap-3.5 border p-3.5 px-4 rounded-lg transition-all duration-300 overflow-hidden hover:border-border-hover ${td.completed ? 'opacity-60 bg-white/5 border-border' : 'bg-card border-border'}`}
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.2 }}
                 layout
               >
-                <button className="todo-check" onClick={() => toggleTodo(td.id)} aria-label="Toggle" />
-                <span className="todo-text">{td.text}</span>
-                <button className="todo-delete" onClick={() => deleteTodo(td.id)} aria-label="Delete">✕</button>
+                <button className={`w-5 h-5 rounded-md border-2 bg-transparent cursor-pointer shrink-0 transition-all duration-200 relative ${td.completed ? 'border-accent-cyan bg-accent-cyan shadow-[0_0_8px_rgba(0,212,255,0.3)] after:content-["✓"] after:absolute after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:text-[#06080f] after:text-[0.7rem] after:font-bold' : 'border-text-muted'}`} onClick={() => toggleTodo(td.id)} aria-label="Toggle" />
+                <span className={`flex-1 text-[0.95rem] transition-all duration-300 outline-none break-all ${td.completed ? 'line-through text-text-muted' : 'text-text-primary'}`}>{td.text}</span>
+                <button className="w-8 h-8 rounded-md bg-transparent border-none text-text-muted cursor-pointer text-base transition-all duration-200 flex items-center justify-center hover:bg-accent-red-light/20 hover:text-accent-red" onClick={() => deleteTodo(td.id)} aria-label="Delete">✕</button>
               </motion.li>
             ))}
           </AnimatePresence>
         </ul>
 
-        <div className="todo-summary">
+        <div className="flex justify-between items-center text-[0.8rem] text-text-muted pt-4 border-t border-border">
           <span>{t.todos.count(activeCount)}</span>
-          <button className="btn-clear" onClick={clearCompleted}>{t.todos.clear}</button>
+          <button className="bg-transparent border-none text-[0.8rem] text-text-secondary cursor-pointer transition-colors duration-200 hover:text-accent-red hover:underline" onClick={clearCompleted}>{t.todos.clear}</button>
         </div>
       </div>
     </section>

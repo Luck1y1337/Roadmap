@@ -104,35 +104,35 @@ export default function SkillsSection() {
   }, [inView, drawRadar])
 
   return (
-    <section id="skills" className="section" ref={sectionRef}>
-      <div className="section-header">
-        <span className="section-tag">{t.skills.tag}</span>
-        <h2 className="section-title">{t.skills.title}</h2>
-        <p className="section-desc">{t.skills.desc}</p>
+    <section id="skills" className="py-20 px-5 md:px-12 max-w-[1100px] mx-auto" ref={sectionRef}>
+      <div className="mb-12">
+        <span className="inline-block font-mono text-[0.7rem] tracking-[0.2em] text-accent-cyan px-3 py-1 border border-accent-cyan/20 rounded-full mb-3.5">{t.skills.tag}</span>
+        <h2 className="text-[2rem] font-extrabold mb-2 tracking-tight">{t.skills.title}</h2>
+        <p className="text-text-secondary text-base">{t.skills.desc}</p>
       </div>
-      <div className="skills-container">
-        <div className="skills-radar-wrap">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+        <div className="flex justify-center items-center">
           <canvas ref={canvasRef} style={{ maxWidth: '100%' }} />
         </div>
-        <div className="skills-details">
+        <div className="flex flex-col gap-5">
           {skillsData.map((skill, i) => (
-            <motion.div key={skill.name} className="skill-item"
+            <motion.div key={skill.name}
               initial={{ opacity: 0, x: 30 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <div className="skill-header">
-                <span className="skill-name">{skill.name}</span>
-                <span className="skill-level">{skill.level}%</span>
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-semibold text-[0.9rem]">{skill.name}</span>
+                <span className="font-mono text-[0.8rem] text-accent-cyan">{skill.level}%</span>
               </div>
-              <div className="skill-bar">
-                <motion.div className="skill-fill"
+              <div className="h-1.5 bg-white/5 rounded-full overflow-hidden mb-1.5">
+                <motion.div className="h-full bg-gradient-main rounded-full"
                   initial={{ width: 0 }}
                   animate={inView ? { width: `${skill.level}%` } : {}}
                   transition={{ duration: 1.2, delay: i * 0.1, ease: [0.4, 0, 0.2, 1] }}
                 />
               </div>
-              <p className="skill-note">{skill.note}</p>
+              <p className="text-[0.78rem] text-text-muted">{skill.note}</p>
             </motion.div>
           ))}
         </div>

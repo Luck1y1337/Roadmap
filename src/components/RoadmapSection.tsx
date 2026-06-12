@@ -65,79 +65,84 @@ export default function RoadmapSection({ currentTrack, onProgressChange }: Roadm
   }
 
   const badgeClassMap: Record<string, string> = {
-    active: 'phase-badge active-badge', cyber: 'phase-badge badge-cyber',
-    dev: 'phase-badge badge-dev', gold: 'phase-badge badge-gold',
-    final: 'phase-badge badge-final', default: 'phase-badge',
+    active: 'font-mono text-[0.65rem] tracking-wider px-3 py-1 rounded-full border shrink-0 font-semibold bg-accent-cyan-light border-accent-cyan/30 text-accent-cyan animate-[var(--animate-pulse-glow)]',
+    cyber: 'font-mono text-[0.65rem] tracking-wider px-3 py-1 rounded-full border shrink-0 font-semibold bg-accent-cyan-light border-accent-cyan/20 text-accent-cyan',
+    dev: 'font-mono text-[0.65rem] tracking-wider px-3 py-1 rounded-full border shrink-0 font-semibold bg-accent-purple-light border-accent-purple/20 text-accent-purple',
+    gold: 'font-mono text-[0.65rem] tracking-wider px-3 py-1 rounded-full border shrink-0 font-semibold bg-accent-amber-light border-accent-amber/20 text-accent-amber',
+    final: 'font-mono text-[0.65rem] tracking-wider px-3 py-1 rounded-full border shrink-0 font-semibold bg-accent-green-light border-accent-green/20 text-accent-green',
+    default: 'font-mono text-[0.65rem] tracking-wider px-3 py-1 rounded-full border shrink-0 font-semibold border-border text-text-muted bg-white/5',
   }
 
   return (
-    <section id="roadmap" className="section">
-      <div className="section-header">
-        <span className="section-tag">{t.roadmap.tag}</span>
-        <h2 className="section-title">{t.roadmap.title}</h2>
-        <p className="section-desc">{t.roadmap.desc}</p>
+    <section id="roadmap" className="py-20 px-5 md:px-12 max-w-[1100px] mx-auto">
+      <div className="mb-12">
+        <span className="inline-block font-mono text-[0.7rem] tracking-[0.2em] text-accent-cyan px-3 py-1 border border-accent-cyan/20 rounded-full mb-3.5">{t.roadmap.tag}</span>
+        <h2 className="text-[2rem] font-extrabold mb-2 tracking-tight">{t.roadmap.title}</h2>
+        <p className="text-text-secondary text-base">{t.roadmap.desc}</p>
       </div>
-      <div className="timeline-visual">
-        <div className="timeline-track">
-          <div className="timeline-progress" />
+      <div className="mb-12 px-5">
+        <div className="relative h-1 bg-white/5 rounded-sm mt-12 mb-10">
+          <div className="absolute left-0 top-0 h-full w-[5%] bg-gradient-main rounded-sm" />
           {['2026','2027','2028','2029','2030'].map((year, i) => (
-            <div key={year} className={`timeline-marker ${i === 0 ? 'active' : ''}`} style={{ left: `${i * 25}%` }}>
-              <span className="marker-dot" />
-              <span className="marker-label">{year}<br /><small>{[t.roadmap.tl.y0, t.roadmap.tl.y1, t.roadmap.tl.y2, t.roadmap.tl.y3, t.roadmap.tl.y4][i]}</small></span>
+            <div key={year} className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center" style={{ left: `${i * 25}%` }}>
+              <span className={`w-3.5 h-3.5 border-2 rounded-full z-[1] transition-all duration-300 ${i === 0 ? 'bg-accent-cyan border-accent-cyan shadow-[0_0_12px_rgba(0,212,255,0.5)]' : 'bg-card border-text-muted'}`} />
+              <span className={`absolute top-[22px] font-mono text-[0.7rem] text-center whitespace-nowrap ${i === 0 ? 'text-accent-cyan' : 'text-text-muted'}`}>
+                {year}<br /><small className="block font-sans text-[0.65rem] text-text-muted">{[t.roadmap.tl.y0, t.roadmap.tl.y1, t.roadmap.tl.y2, t.roadmap.tl.y3, t.roadmap.tl.y4][i]}</small>
+              </span>
             </div>
           ))}
         </div>
       </div>
-      <div className="phases-container">
+      <div className="flex flex-col gap-4">
         <AnimatePresence mode="popLayout">
           {filteredPhases.map(config => {
             const phaseT = t[config.key]
             const progress = getPhaseProgress(config)
             const isOpen = openPhases[config.id]
             return (
-              <motion.div key={config.id} className={`phase-card ${isOpen ? 'open' : ''}`} layout
+              <motion.div key={config.id} className="bg-card border border-border rounded-xl overflow-hidden transition-all duration-300 hover:border-border-hover" layout
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.3 }}
               >
-                <div className="phase-header" onClick={() => togglePhase(config.id)}>
+                <div className="flex items-center gap-4 p-5 md:px-6 cursor-pointer select-none transition-colors duration-200 hover:bg-white/5" onClick={() => togglePhase(config.id)}>
                   <div className={badgeClassMap[config.badgeClass]}>{phaseT.badge}</div>
-                  <div className="phase-info">
-                    <h3>{phaseT.title}</h3>
-                    <span className="phase-period">{phaseT.period}</span>
+                  <div className="flex-1">
+                    <h3 className="text-base font-semibold mb-0.5">{phaseT.title}</h3>
+                    <span className="text-[0.78rem] text-text-muted">{phaseT.period}</span>
                   </div>
-                  <div className="phase-progress-ring">
-                    <svg viewBox="0 0 36 36">
-                      <path className="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                      <motion.path className="ring-fill" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                  <div className="w-9 h-9 relative shrink-0">
+                    <svg viewBox="0 0 36 36" className="-rotate-90 w-full h-full">
+                      <path className="fill-none stroke-white/5 stroke-[3]" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                      <motion.path className="fill-none stroke-accent-cyan stroke-[3] rounded-full" style={{ strokeLinecap: 'round' }} d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                         initial={{ strokeDasharray: '0, 100' }} animate={{ strokeDasharray: `${progress}, 100` }} transition={{ duration: 0.6 }}
                       />
                     </svg>
-                    <span className="ring-text">{progress}%</span>
+                    <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-mono text-[0.5rem] text-text-muted">{progress}%</span>
                   </div>
-                  <svg className="chevron-icon" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" strokeWidth="2" /></svg>
+                  <svg className={`w-4.5 h-4.5 text-text-muted transition-transform duration-300 shrink-0 ${isOpen ? 'rotate-180' : ''}`} viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9" fill="none" stroke="currentColor" strokeWidth="2" /></svg>
                 </div>
                 <AnimatePresence>
                   {isOpen && (
-                    <motion.div className="phase-body" style={{ display: 'block' }}
+                    <motion.div className="border-t border-border overflow-hidden" style={{ display: 'block' }}
                       initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }}
                     >
-                      <div className="phase-checklist">
+                      <div className="pt-5 px-5 md:px-6 flex flex-col gap-2.5">
                         {config.taskKeys.map((tk, i) => {
                           const taskId = `${config.id}-${i}`
                           const taskText = (phaseT as Record<string, string>)[tk]
                           return (
-                            <label key={taskId} className="check-item">
-                              <input type="checkbox" checked={!!checks[taskId]} onChange={() => toggleCheck(taskId)} />
-                              <span className="checkmark" />
-                              <span className="check-text">{taskText}</span>
+                            <label key={taskId} className="flex items-start gap-3 py-2.5 px-3.5 rounded-lg cursor-pointer transition-colors duration-200 hover:bg-white/5 group">
+                              <input type="checkbox" className="peer hidden" checked={!!checks[taskId]} onChange={() => toggleCheck(taskId)} />
+                              <span className="w-5 h-5 border-2 border-text-muted rounded-md shrink-0 flex items-center justify-center transition-all duration-250 mt-px peer-checked:bg-accent-cyan peer-checked:border-accent-cyan peer-checked:shadow-[0_0_8px_rgba(0,212,255,0.3)] after:content-['✓'] after:text-[#06080f] after:text-[0.75rem] after:font-bold after:opacity-0 peer-checked:after:opacity-100" />
+                              <span className="text-[0.9rem] leading-relaxed text-text-secondary transition-all duration-200 peer-checked:line-through peer-checked:text-text-muted">{taskText}</span>
                             </label>
                           )
                         })}
                       </div>
-                      <div className={`phase-tip ${config.tipWarning ? 'tip-warning' : ''}`}>
-                        <span className="tip-icon">{tipIcons[config.key]}</span>
-                        <p>{phaseT.tip}</p>
+                      <div className={`flex gap-3 m-4.5 mx-5 md:mx-6 mb-6 py-3.5 px-4.5 rounded-lg border-l-[3px] ${config.tipWarning ? 'bg-accent-amber-light/60 border-accent-amber' : 'bg-accent-cyan-light/40 border-accent-cyan'}`}>
+                        <span className="text-[1.2rem] shrink-0">{tipIcons[config.key]}</span>
+                        <p className="text-[0.85rem] text-text-secondary leading-relaxed">{phaseT.tip}</p>
                       </div>
                     </motion.div>
                   )}
