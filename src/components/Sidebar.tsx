@@ -27,9 +27,9 @@ export default function Sidebar({ activeSection, overallProgress }: SidebarProps
 
   const navContent = (
     <>
-      <div className="flex items-center gap-2.5 px-6 mb-4">
-        <span className="text-2xl animate-[var(--animate-pulse-glow)]">⚡</span>
-        <span className="font-bold text-xl bg-gradient-main text-transparent bg-clip-text">Luck1y</span>
+      <div className="flex items-center gap-2 p-6 mb-4 text-xl font-extrabold border-b border-border">
+        <span className="text-2xl text-accent-cyan animate-[var(--animate-pulse-glow)]">⚡</span>
+        <span className="gradient-text">Luck1y</span>
       </div>
       <LanguageSwitcher />
       <ul className="flex-1 flex flex-col gap-1 px-3 list-none">
@@ -76,7 +76,7 @@ export default function Sidebar({ activeSection, overallProgress }: SidebarProps
           <span className={`block w-full h-0.5 bg-text-primary rounded-full transition-all duration-300 ${mobileOpen ? 'opacity-0' : ''}`} />
           <span className={`block w-full h-0.5 bg-text-primary rounded-full transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-[9px]' : ''}`} />
         </button>
-        <span className="font-bold text-base bg-gradient-main text-transparent bg-clip-text">⚡ Luck1y</span>
+        <span className="font-extrabold text-[1.1rem] gradient-text">⚡ Luck1y</span>
         <div className="ml-auto"><LanguageSwitcher isMobile={true} /></div>
       </header>
       
