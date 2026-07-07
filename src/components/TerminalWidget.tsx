@@ -19,7 +19,7 @@ export default function TerminalWidget() {
     const trimmed = cmd.trim();
     if (!trimmed) return;
 
-    const newHistory = [...history, { type: 'input', text: trimmed }];
+    const newHistory = [...history, { type: 'input' as const, text: trimmed }];
     
     switch (trimmed.toLowerCase()) {
       case 'help':
