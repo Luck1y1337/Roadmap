@@ -8,151 +8,64 @@
 
 # 🚀 Interactive Career Roadmap
 
-### A premium, fully interactive web application built with **React**, **TypeScript**, and **Framer Motion** — mapping the journey from a 15-year-old developer in Fergana, Uzbekistan to the global tech industry.
+A premium, fully interactive single-page web app that maps and tracks the journey
+from a 15-year-old developer in Fergana, Uzbekistan toward the global tech industry —
+built with **React**, **TypeScript**, **Vite**, and **Framer Motion**.
 
 <br>
 
+[![CI](https://github.com/Luck1y1337/Roadmap/actions/workflows/ci.yml/badge.svg)](https://github.com/Luck1y1337/Roadmap/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
 ![React](https://img.shields.io/badge/React_18-61DAFB?style=flat-square&logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite_6-646CFF?style=flat-square&logo=vite&logoColor=white)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=flat-square&logo=framer&logoColor=white)
-![Yarn](https://img.shields.io/badge/Yarn-2C8EBB?style=flat-square&logo=yarn&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_4-38BDF8?style=flat-square&logo=tailwindcss&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion_11-0055FF?style=flat-square&logo=framer&logoColor=white)
 
 <br>
 
-<p align="center">
-  <a href="#-features">Features</a> •
-  <a href="#%EF%B8%8F-tech-stack">Tech Stack</a> •
-  <a href="#-architecture">Architecture</a> •
-  <a href="#-getting-started">Get Started</a> •
-  <a href="#-roadmap-phases">Phases</a> •
-  <a href="#-study-abroad">Study Abroad</a>
-</p>
-
-<br>
-
-> **"The best time to start was yesterday. The second best time is now."**
+<a href="#-about-the-project">About</a> •
+<a href="#-features">Features</a> •
+<a href="#️-tech-stack">Tech Stack</a> •
+<a href="#️-project-structure">Structure</a> •
+<a href="#-getting-started">Getting Started</a> •
+<a href="#-deployment">Deployment</a> •
+<a href="#-security">Security</a> •
+<a href="#-license">License</a>
 
 </div>
 
 ---
 
-## 🎯 What Is This?
+## 🎯 About the Project
 
-This isn't just a roadmap — it's a **living, interactive web application** that tracks my entire journey from an 8th-grade student to a professional **Cyber Security Specialist** or **Software Developer**. Every checkbox saves to `localStorage`, every animation is hand-crafted with Framer Motion, and every pixel is designed to feel premium.
+This isn't just a static roadmap — it's a **living, interactive web application** that
+tracks a multi-year learning journey from an 8th-grade student toward a career as a
+**Cyber Security Specialist** or **Software Developer**. Progress persists across visits
+via the browser's `localStorage`, animations are hand-crafted with Framer Motion, and the
+entire interface is available in **three languages** (Uzbek, English, Russian).
 
-<table>
-<tr>
-<td width="50%">
-
-### 👤 About Me
-- 🎂 **15 years old** — born April 3, 2011
-- 📍 **Fergana, Uzbekistan**
-- ⚛️ Learning **React** at Najot Ta'lim
-- 🇬🇧 **IELTS 5.5** (targeting 7.0+)
-- 🐧 **Linux** enthusiast (Kali & Ubuntu)
-- 🛠️ Proficient with **Git**, **Vercel**, **Netlify**
-
-</td>
-<td width="50%">
-
-### 🎯 Goals
-- 🛡️ Become a **Cyber Security Specialist**
-- 💻 Or a **Software Developer**
-- 🇨🇳 Study in **China** (CSC Scholarship)
-- 🇯🇵 Or **Japan** (MEXT Scholarship)
-- 🏆 Build a **world-class portfolio**
-- 💼 Land a **global tech career**
-
-</td>
-</tr>
-</table>
+Everything is client-side: there is no backend, no account, and no data ever leaves the
+browser. Open it, check off what you've accomplished, and your state is there next time.
 
 ---
 
 ## ✨ Features
 
-<table>
-<tr>
-<td align="center" width="25%">
-
-#### 🎨 Premium Dark UI
-Glassmorphism, animated particle background, gradient accents, and JetBrains Mono typography
-
-</td>
-<td align="center" width="25%">
-
-#### 📊 Skills Radar Chart
-Canvas-rendered radar visualization showing real-time skill levels across 6 categories
-
-</td>
-<td align="center" width="25%">
-
-#### ✅ Persistent Progress
-Every checkbox saves to `localStorage` — come back tomorrow and your progress is still there
-
-</td>
-<td align="center" width="25%">
-
-#### 🎬 Framer Motion
-Staggered animations, layout transitions, `AnimatePresence` for smooth mount/unmount effects
-
-</td>
-</tr>
-<tr>
-<td align="center">
-
-#### 🗺️ Interactive Timeline
-Year-by-year roadmap with expandable phase cards and circular progress rings
-
-</td>
-<td align="center">
-
-#### 📚 Resource Library
-20+ curated free resources across 5 categories with real, working links
-
-</td>
-<td align="center">
-
-#### 🎯 Practice Challenges
-8 hands-on exercises from beginner to advanced with direct platform links
-
-</td>
-<td align="center">
-
-#### 🌏 Study Abroad Guide
-China vs Japan detailed comparison: requirements, costs, deadlines, and scholarships
-
-</td>
-</tr>
-<tr>
-<td align="center">
-
-#### 🛡️💻 Track Switcher
-Toggle between Cyber Security and Software Development career paths instantly
-
-</td>
-<td align="center">
-
-#### ✏️ Personal TODO List
-Add, complete, filter, and delete custom tasks with animated transitions
-
-</td>
-<td align="center">
-
-#### 📱 Fully Responsive
-Desktop sidebar + mobile hamburger menu — works on every screen size
-
-</td>
-<td align="center">
-
-#### 🧭 Smart Navigation
-Scroll-spy sidebar that highlights the current section as you scroll
-
-</td>
-</tr>
-</table>
+- **🌍 Multi-language UI** — full Uzbek / English / Russian translations with a live language switcher.
+- **🛡️💻 Track switcher** — toggle instantly between the Cyber Security and Software Development paths.
+- **🗺️ Interactive timeline** — year-by-year phases with expandable cards and circular progress rings.
+- **✅ Persistent progress** — every checkbox and todo saves to `localStorage` and survives reloads.
+- **📊 Skills radar** — a Canvas-rendered radar chart visualising skill levels across six categories.
+- **🔥 Activity heatmap** — a GitHub-style contribution grid driven by your daily activity.
+- **✏️ Personal todo list** — add, complete, filter, and delete custom tasks with animated transitions.
+- **📚 Resource library** — curated free resources across Frontend, Backend, Security, DSA, and IELTS.
+- **🎯 Practice challenges** — hands-on exercises from beginner to advanced with direct platform links.
+- **🌏 Study-abroad guide** — a side-by-side China (CSC) vs Japan (MEXT) scholarship comparison.
+- **🖥️ Interactive terminal widget** — a draggable mini-terminal with playful commands (`help`, `whoami`, `skills`…).
+- **⏱️ Focus widget** — a built-in Pomodoro-style focus timer.
+- **🎨 Premium dark UI** — glassmorphism, an animated particle background, and gradient accents.
+- **🧭 Smart navigation** — a scroll-spy sidebar (desktop) and hamburger menu (mobile), fully responsive.
 
 ---
 
@@ -162,54 +75,59 @@ Scroll-spy sidebar that highlights the current section as you scroll
 |-------|-----------|---------|
 | **Framework** | React 18 | Component-based UI architecture |
 | **Language** | TypeScript | Type safety & developer experience |
-| **Build Tool** | Vite 6 | Lightning-fast HMR & bundling |
+| **Build Tool** | Vite 6 | Fast HMR & optimized production bundling |
+| **Styling** | Tailwind CSS 4 | Utility-first styling with a custom design-token theme |
 | **Animations** | Framer Motion 11 | Physics-based animations & gestures |
-| **Styling** | Vanilla CSS | Custom properties, gradients, glassmorphism |
-| **Typography** | Inter + JetBrains Mono | Premium Google Fonts pairing |
-| **Visualization** | Canvas API | Hand-drawn radar chart |
-| **Persistence** | localStorage | Client-side data persistence |
-| **Package Manager** | Yarn | Fast, deterministic installs |
+| **i18n** | Custom React context | Uzbek / English / Russian translations |
+| **Visualization** | Canvas API | Hand-drawn skills radar chart & particle background |
+| **Persistence** | localStorage | Client-side, privacy-friendly data persistence |
+| **Package Manager** | Yarn | Deterministic installs via `yarn.lock` |
+| **CI** | GitHub Actions | Type-check & build on every push and PR |
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ Project Structure
 
 ```
-src/
-├── main.tsx                    # React DOM entry point
-├── App.tsx                     # Root component — state & composition
-├── index.css                   # Design system (900+ lines)
-├── types.ts                    # TypeScript interfaces & types
-├── data.ts                     # All app data (phases, resources, skills)
-├── hooks.ts                    # Custom hooks
-│   ├── useLocalStorage         # Persistent state with JSON serialization
-│   ├── useScrollSpy            # IntersectionObserver-based scroll tracking
-│   └── useInView               # Viewport detection for lazy animations
-│
-└── components/
-    ├── ParticleCanvas.tsx       # Animated particle background (Canvas API)
-    ├── Sidebar.tsx              # Desktop + mobile navigation with Framer Motion
-    ├── Hero.tsx                 # Landing section with stats & track switcher
-    ├── SkillsSection.tsx        # Radar chart + animated skill bars
-    ├── RoadmapSection.tsx       # Timeline, phase cards, persistent checklists
-    ├── ResourcesSection.tsx     # Tabbed resource library (5 categories)
-    ├── PracticeSection.tsx      # Coding challenge cards with difficulty levels
-    ├── AbroadSection.tsx        # China vs Japan comparison
-    ├── TodoSection.tsx          # CRUD todo list with filters
-    └── Footer.tsx               # Site footer
+Roadmap/
+├── index.html                  # Vite entry HTML
+├── vite.config.ts              # Vite + React + Tailwind config
+├── src/
+│   ├── main.tsx                # React DOM entry point
+│   ├── App.tsx                 # Root component — state & composition
+│   ├── index.css               # Tailwind theme & design tokens
+│   ├── types.ts                # Shared TypeScript types
+│   ├── data.ts                 # App content (phases, resources, skills)
+│   ├── i18n.ts                 # UZ / EN / RU translation sets
+│   ├── LanguageContext.tsx     # Language provider & hook
+│   ├── hooks.ts                # useLocalStorage, useScrollSpy, useInView, trackActivity
+│   └── components/
+│       ├── ParticleCanvas.tsx  # Animated particle background (Canvas API)
+│       ├── Sidebar.tsx         # Desktop + mobile navigation
+│       ├── LanguageSwitcher.tsx# UZ / EN / RU switcher
+│       ├── Hero.tsx            # Landing section with stats & track switcher
+│       ├── SkillsSection.tsx   # Radar chart + animated skill bars
+│       ├── RoadmapSection.tsx  # Timeline, phase cards, persistent checklists
+│       ├── ResourcesSection.tsx# Tabbed resource library
+│       ├── PracticeSection.tsx # Coding-challenge cards by difficulty
+│       ├── AbroadSection.tsx   # China vs Japan comparison
+│       ├── TodoSection.tsx     # CRUD todo list with filters
+│       ├── Heatmap.tsx         # Activity contribution grid
+│       ├── TerminalWidget.tsx  # Draggable interactive terminal
+│       ├── FocusWidget.tsx     # Focus / Pomodoro timer
+│       └── Footer.tsx          # Site footer
+└── .github/workflows/ci.yml    # Build & type-check pipeline
 ```
-
-### Design Decisions
-
-- **Zero external UI libraries** — every component and style is hand-crafted
-- **Custom hooks** instead of state management libraries — keeps the bundle lean
-- **Single CSS file** with CSS custom properties — acts as a design system
-- **Framer Motion** only for animations — no unnecessary dependencies
-- **Data separated from components** — clean separation of concerns
 
 ---
 
 ## 🚀 Getting Started
+
+### Prerequisites
+
+- **Node.js** 20+ and **Yarn** (Classic).
+
+### Installation & development
 
 ```bash
 # Clone the repository
@@ -219,114 +137,64 @@ cd Roadmap
 # Install dependencies
 yarn install
 
-# Start the development server
+# Start the dev server (http://localhost:5173)
 yarn dev
-
-# Build for production
-yarn build
 ```
 
-The app will be available at `http://localhost:5173`
+### Available scripts
+
+| Command | Description |
+|---------|-------------|
+| `yarn dev` | Start the Vite dev server with hot-module reload |
+| `yarn build` | Type-check (`tsc -b`) and build the production bundle into `dist/` |
+| `yarn preview` | Serve the production build locally for a final check |
+
+### Environment variables
+
+None required. The app is fully client-side and stores all state in `localStorage`.
 
 ---
 
-## 🗺️ Roadmap Phases
+## 🌐 Deployment
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│  Phase 0  ▸  Summer 2026 (NOW)                                 │
-│              Finish React course, start TryHackMe               │
-│                                                                 │
-│  Phase 1  ▸  9th Grade (2026-27)                               │
-│              Backend (Node.js), Networking, TypeScript           │
-│                                                                 │
-│  Phase 2  ▸  10th Grade (2027-28)                              │
-│              🛡️ Cyber Security  OR  💻 Full-Stack Dev           │
-│                                                                 │
-│  Phase 3  ▸  11th Grade (2028-29)                              │
-│              Scholarships, Certifications, IELTS 7.0+           │
-│                                                                 │
-│  Phase 4  ▸  University (2029-33)                              │
-│              Professional career, internships, first job        │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+The build output is a static `dist/` directory, deployable to any static host
+(Netlify, Vercel, GitHub Pages, Cloudflare Pages, …).
+
+**Netlify / Vercel** — point the host at this repo and use:
+
+- **Build command:** `yarn build`
+- **Publish directory:** `dist`
+
+That's the entire deployment; no server or runtime environment variables are needed.
 
 ---
 
-## 🌏 Study Abroad
+## 🔐 Security
 
-<table>
-<tr>
-<th width="50%">🇨🇳 China (CSC Scholarship)</th>
-<th width="50%">🇯🇵 Japan (MEXT Scholarship)</th>
-</tr>
-<tr>
-<td>
+- **No backend, no accounts, no tracking.** All data stays in the visitor's browser
+  (`localStorage`); nothing is transmitted to any server.
+- **No secrets required.** The app ships with no API keys or environment variables.
+- Dependencies are pinned via `yarn.lock`, and every push is type-checked and built in CI.
 
-- **Universities:** Tsinghua, Peking, SJTU, Zhejiang
-- **IELTS:** 6.0–6.5 required
-- **Language:** HSK 4 (Mandarin)
-- **Stipend:** $400–500/month
-- **Tuition:** Fully covered
-- **Apply:** December–February
-- **Living cost:** $500–900/month
-
-</td>
-<td>
-
-- **Universities:** UTokyo, Osaka, Tohoku, Waseda
-- **IELTS:** 6.0+ required
-- **Language:** JLPT N4–N3 (Japanese)
-- **Stipend:** $1000–1200/month
-- **Tuition:** Fully covered
-- **Apply:** April–May
-- **Living cost:** $900–1400/month
-
-</td>
-</tr>
-</table>
+Found a security issue? Please open a private report via the repository's
+[Security Advisories](https://github.com/Luck1y1337/Roadmap/security/advisories) tab.
 
 ---
 
-## 📚 Curated Resources
+## 📄 License
 
-| Category | Platforms |
-|----------|----------|
-| **Frontend** | [Frontend Mentor](https://frontendmentor.io) · [The Odin Project](https://theodinproject.com) · [React.dev](https://react.dev) · [Fireship](https://youtube.com/@Fireship) |
-| **Backend** | [FreeCodeCamp](https://freecodecamp.org) · [SQLBolt](https://sqlbolt.com) · [Docker Curriculum](https://docker-curriculum.com) · [CS50](https://cs50.harvard.edu/x/) |
-| **Security** | [TryHackMe](https://tryhackme.com) · [PortSwigger](https://portswigger.net/web-security) · [HackTheBox](https://hackthebox.com) · [picoCTF](https://picoctf.org) |
-| **DSA** | [LeetCode](https://leetcode.com) · [NeetCode](https://neetcode.io) · [Robocontest](https://robocontest.uz) · [Codeforces](https://codeforces.com) |
-| **IELTS** | [Cambridge IELTS](https://cambridge.org) · [IELTS Advantage](https://youtube.com/@IELTSAdvantage) · [BBC Learning](https://bbc.co.uk/learningenglish) · [IELTS Liz](https://ieltsliz.com) |
-
----
-
-## 🧰 Skills Assessment
-
-```
-Frontend & React    ████████████████████░░░░░░  75%
-Git & Deploy        ████████████████████████░░  80%
-Cybersecurity       ██████████████░░░░░░░░░░░░  55%
-English (IELTS)     ██████████████░░░░░░░░░░░░  55%
-Other Languages     ██████████░░░░░░░░░░░░░░░░  40%
-Algorithms (DSA)    ████████░░░░░░░░░░░░░░░░░░  30%
-```
+Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for details.
 
 ---
 
 <div align="center">
 
-## 📬 Contact
-
 [![GitHub](https://img.shields.io/badge/GitHub-Luck1y1337-181717?style=for-the-badge&logo=github)](https://github.com/Luck1y1337)
 
----
-
-**Built with React + TypeScript + Framer Motion**
+**Built with React + TypeScript + Tailwind CSS + Framer Motion**
 
 Made with ❤️ in Fergana, Uzbekistan 🇺🇿
 
-⭐ **Star this repo if you find it inspiring!**
+⭐ Star this repo if you find it inspiring!
 
 </div>
